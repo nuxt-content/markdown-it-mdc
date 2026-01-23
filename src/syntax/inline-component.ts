@@ -9,8 +9,13 @@ export const MarkdownItInlineComponent: MarkdownIt.PluginWithOptions<MdcInlineCo
     const start = state.pos
     const char = state.src[start]
 
-    // Requires a space before the colon
-    if (!(char === ':' && state.src[start - 1] === ' '))
+    // Must start with a colon
+    if (char !== ':')
+      return false
+
+    // Allow at the start of content, or after whitespace
+    const prevChar = state.src[start - 1]
+    if (start > 0 && prevChar !== ' ' && prevChar !== '\t')
       return false
 
     let index = start + 1
