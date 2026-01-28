@@ -18,21 +18,51 @@ export const MarkdownItMdcBlock: MarkdownIt.PluginSimple = (md) => {
       if (!line.match(/^:\w/))
         return false
 
+      const parsed = parseBlockParams(line.slice(1))
       const {
         name,
+        content,
         props,
-      } = parseBlockParams(line.slice(1))
+        remaining,
+      } = parsed
+
+      // If there's unparsed remaining content, this should be treated as inline component in a paragraph
+      if (remaining) {
+        return false
+      }
 
       state.lineMax = startLine + 1
 
       if (!silent) {
-        const token = state.push('mdc_block_shorthand', name, 0)
-        props?.forEach(([key, value]) => {
-          if (key === 'class')
-            token.attrJoin(key, value)
-          else
-            token.attrSet(key, value)
-        })
+        if (content !== undefined) {
+          // Component with content - create opening and closing tags
+          const tokenOpen = state.push('mdc_block_shorthand', name, 1)
+          props?.forEach(([key, value]) => {
+            if (key === 'class')
+              tokenOpen.attrJoin(key, value)
+            else
+              tokenOpen.attrSet(key, value)
+          })
+
+          // Create inline container for the content
+          const inline = state.push('inline', '', 0)
+          inline.content = ''
+          const text = new state.Token('text', '', 0)
+          text.content = content
+          inline.children = [text]
+
+          state.push('mdc_block_shorthand', name, -1)
+        }
+        else {
+          // Self-closing component
+          const token = state.push('mdc_block_shorthand', name, 0)
+          props?.forEach(([key, value]) => {
+            if (key === 'class')
+              token.attrJoin(key, value)
+            else
+              token.attrSet(key, value)
+          })
+        }
       }
 
       state.line = startLine + 1

@@ -32,6 +32,8 @@ export const MarkdownItInlineProps: MarkdownIt.PluginWithOptions<MdcInlinePropsO
     if (end === start)
       return false
 
+    state.pos = end
+
     if (silent)
       return true
 
@@ -39,8 +41,6 @@ export const MarkdownItInlineProps: MarkdownIt.PluginWithOptions<MdcInlinePropsO
     const token = state.push('mdc_inline_props', 'span', 0)
     token.attrs = props
     token.hidden = true
-
-    state.pos = end
 
     return true
   })

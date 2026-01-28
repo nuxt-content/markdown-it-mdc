@@ -1,8 +1,11 @@
 import type MarkdownIt from 'markdown-it'
+import { parseBracketContent } from '../parse/brackets'
 
 export interface MdcInlineComponentOptions {
 
 }
+
+const ALLOWED_PREV_CHARS = new Set([' ', '\t', '\n', '*', '_', '['])
 
 export const MarkdownItInlineComponent: MarkdownIt.PluginWithOptions<MdcInlineComponentOptions> = (md) => {
   md.inline.ruler.after('entity', 'mdc_inline_component', (state, silent) => {
@@ -13,27 +16,24 @@ export const MarkdownItInlineComponent: MarkdownIt.PluginWithOptions<MdcInlineCo
     if (char !== ':')
       return false
 
-    // Allow at the start of content, or after whitespace
+    // Allow at the start of content, or after whitespace/punctuation
     const prevChar = state.src[start - 1]
-    if (start > 0 && prevChar !== ' ' && prevChar !== '\t')
+    if (start > 0 && !ALLOWED_PREV_CHARS.has(prevChar))
       return false
 
     let index = start + 1
-    let contentStart = -1
-    let contentEnd = -1
+    let nameEnd = -1
+    let content: string | undefined
+
+    // Parse component name
     while (index < state.src.length) {
       const char = state.src[index]
       if (char === '[') {
-        contentStart = index + 1
-        while (index < state.src.length) {
-          index += 1
-          if (state.src[index] === '\\')
-            index += 2
-          if (state.src[index] === ']') {
-            contentEnd = index
-            index += 1
-            break
-          }
+        nameEnd = index
+        const result = parseBracketContent(state.src, index)
+        if (result) {
+          content = result.content
+          index = result.endIndex
         }
         break
       }
@@ -42,27 +42,30 @@ export const MarkdownItInlineComponent: MarkdownIt.PluginWithOptions<MdcInlineCo
       index += 1
     }
 
+    // If no bracket was found, name ends at current index
+    if (nameEnd === -1)
+      nameEnd = index
+
     // Empty name
-    if (index <= start + 1)
+    if (nameEnd <= start + 1)
       return false
+
+    state.pos = index
 
     if (silent)
       return true
 
-    if (contentEnd !== contentStart) {
-      const name = state.src.slice(start + 1, contentStart - 1)
-      const body = state.src.slice(contentStart, contentEnd)
+    const name = state.src.slice(start + 1, nameEnd)
+
+    if (content !== undefined) {
       state.push('mdc_inline_component', name, 1)
       const text = state.push('text', '', 0)
-      text.content = body
+      text.content = content
       state.push('mdc_inline_component', name, -1)
     }
     else {
-      const name = state.src.slice(start + 1, index)
       state.push('mdc_inline_component', name, 0)
     }
-
-    state.pos = index
 
     return true
   })
