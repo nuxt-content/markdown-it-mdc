@@ -15,7 +15,7 @@ describe('parseBlockParams', () => {
     expect(parseBlockParams(' $foo.bar1  {#my-id .my-class}'))
       .toMatchInlineSnapshot(`
         {
-          "name": "$foo.bar1",
+          "name": "$foo-bar1",
           "props": [
             [
               "id",
