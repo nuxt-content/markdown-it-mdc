@@ -82,6 +82,15 @@ export const MarkdownItMdcBlock: MarkdownIt.PluginSimple = (md) => {
       let max = state.eMarks[startLine]
       const indent = state.sCount[startLine]
 
+      // Variables to track code fences (``` or ~~~) so we don't match closing :: inside them
+      let inCodeFence = false
+      let codeFenceCharCode = 0
+      let codeFenceCount = 0
+
+      // Variables to track nesting depth for blocks with the same marker count
+      // This is used to determine if the current line is a closing marker for a nested block
+      let nestingDepth = 0
+
       // Check out the first character quickly,
       // this should filter out most of non-containers
       //
@@ -129,7 +138,39 @@ export const MarkdownItMdcBlock: MarkdownIt.PluginSimple = (md) => {
           break
         }
 
-        if (marker_char !== state.src.charCodeAt(start))
+        const lineCharCode = state.src.charCodeAt(start)
+
+        // #region Code fence tracking to prevent matching closing :: inside code fences
+        // 1. Detect closing code fence (``` or ~~~)
+        if (inCodeFence) {
+          if (lineCharCode === codeFenceCharCode) {
+            let fencePos = start + 1
+            while (fencePos < max && state.src.charCodeAt(fencePos) === codeFenceCharCode)
+              fencePos++
+            if (fencePos - start >= codeFenceCount) {
+              const afterFence = state.skipSpaces(fencePos)
+              if (afterFence >= max)
+                inCodeFence = false
+            }
+          }
+          continue
+        }
+
+        // 2. Detect opening code fence (``` or ~~~)
+        if (lineCharCode === 0x60 /* ` */ || lineCharCode === 0x7E /* ~ */) {
+          let fencePos = start + 1
+          while (fencePos < max && state.src.charCodeAt(fencePos) === lineCharCode)
+            fencePos++
+          if (fencePos - start >= 3) {
+            inCodeFence = true
+            codeFenceCharCode = lineCharCode
+            codeFenceCount = fencePos - start
+            continue
+          }
+        }
+        // #endregion
+
+        if (marker_char !== lineCharCode)
           continue
 
         // if (state.sCount[nextLine] - state.blkIndent >= 4) {
@@ -150,8 +191,17 @@ export const MarkdownItMdcBlock: MarkdownIt.PluginSimple = (md) => {
         // pos -= (pos - start)
         pos = state.skipSpaces(pos)
 
-        if (pos < max)
+        if (pos < max) {
+          // Keep track of newly opened nested blocks
+          nestingDepth++
           continue
+        }
+
+        if (nestingDepth > 0) {
+          // Decrement the nesting depth for closing markers
+          nestingDepth--
+          continue
+        }
 
         // found!
         auto_closed = true
@@ -251,7 +301,7 @@ export const MarkdownItMdcBlock: MarkdownIt.PluginSimple = (md) => {
 
         const data = parse(yaml) as Record<string, unknown>
         const token = state.env.mdcBlockTokens[0]
-        Object.entries(data).forEach(([key, value]) => {
+        Object.entries(data || {}).forEach(([key, value]) => {
           if (key === 'class')
             token.attrJoin(key, value)
           else

@@ -8,5 +8,6 @@ export default defineBuildConfig({
   clean: true,
   rollup: {
     emitCJS: false,
+    inlineDependencies: ['scule'],
   },
 })

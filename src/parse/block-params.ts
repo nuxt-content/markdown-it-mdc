@@ -1,7 +1,8 @@
+import { kebabCase } from 'scule'
 import { parseBracketContent } from './brackets'
 import { searchProps } from './props'
 
-const RE_BLOCK_NAME = /^[a-z$][$\w.-]*/
+const RE_BLOCK_NAME = /^[a-z$][$\w.-]*/i
 
 /**
  * Parse `component-name [content] {.params}` from block params.
@@ -46,7 +47,7 @@ export function parseBlockParams(str: string) {
   }
 
   const result: { name: string, content?: string, props?: [string, string][], remaining?: string } = {
-    name,
+    name: kebabCase(name),
   }
 
   if (content !== undefined) {
