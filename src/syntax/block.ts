@@ -243,6 +243,7 @@ export const MarkdownItMdcBlock: MarkdownIt.PluginSimple = (md) => {
 
       // Ending Tag
       const tokenClose = state.push('mdc_block_close', params.name, -1)
+      tokenClose.map = [startLine, nextLine]
       tokenClose.markup = state.src.slice(start, pos)
       tokenClose.block = true
 
