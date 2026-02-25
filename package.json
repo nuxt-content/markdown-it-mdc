@@ -1,5 +1,5 @@
 {
-  "name": "markdown-it-mdc",
+  "name": "markdown-it-comark",
   "type": "module",
   "version": "0.2.12",
   "packageManager": "pnpm@10.29.2",
@@ -7,12 +7,12 @@
   "author": "Anthony Fu <anthonyfu117@hotmail.com>",
   "license": "MIT",
   "funding": "https://github.com/sponsors/antfu",
-  "homepage": "https://github.com/nuxt-content/markdown-it-mdc#readme",
+  "homepage": "https://github.com/nuxt-content/markdown-it-comark#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nuxt-content/markdown-it-mdc.git"
+    "url": "git+https://github.com/nuxt-content/markdown-it-comark.git"
   },
-  "bugs": "https://github.com/nuxt-content/markdown-it-mdc/issues",
+  "bugs": "https://github.com/nuxt-content/markdown-it-comark/issues",
   "keywords": [
     "markdown",
     "markdown-it-plugin"
