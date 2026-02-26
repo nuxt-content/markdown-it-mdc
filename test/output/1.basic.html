@@ -1,8 +1,8 @@
 <h1>Hello</h1>
 <p>
   <em>Hello</em> <strong>World</strong> from
-  <a href="https://github.com/nuxt-content/markdown-it-comark"
-    ><code>markdown-it-comark</code></a
+  <a href="https://github.com/comarkdown/markdown-it-comark"
+    ><code>@comark/markdown-it</code></a
   >!
 </p>
 <blockquote>
@@ -12,10 +12,10 @@
     served as fixture for false positives of the mdc plugin:
   </p>
 </blockquote>
-<pre><code class="language-bash">npm i markdown-it-comark
+<pre><code class="language-bash">npm i @comark/markdown-it
 </code></pre>
 <pre><code class="language-ts">import MarkdownIt from 'markdown-it'
-import mdc from 'markdown-it-comark'
+import mdc from '@comark/markdown-it'
 
 // :warning: this line should not be transformed
 const md = new MarkdownIt()

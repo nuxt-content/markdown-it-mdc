@@ -1,4 +1,4 @@
-# markdown-it-comark
+# @comark/markdown-it
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
@@ -13,12 +13,12 @@ Use [VS Code MDC Extension](https://marketplace.visualstudio.com/items?itemName=
 ## Usage
 
 ```bash
-npm i markdown-it markdown-it-comark
+npm i markdown-it @comark/markdown-it
 ```
 
 ```ts
 import MarkdownIt from 'markdown-it'
-import comark from 'markdown-it-comark'
+import comark from '@comark/markdown-it'
 
 const md = new MarkdownIt()
   .use(comark)
@@ -55,13 +55,13 @@ Published under MIT License.
 
 <!-- Badges -->
 
-[npm-version-src]: https://img.shields.io/npm/v/markdown-it-comark?style=flat&colorA=080f12&colorB=1fa669
-[npm-version-href]: https://npmjs.com/package/markdown-it-comark
-[npm-downloads-src]: https://img.shields.io/npm/dm/markdown-it-comark?style=flat&colorA=080f12&colorB=1fa669
-[npm-downloads-href]: https://npmjs.com/package/markdown-it-comark
-[bundle-src]: https://img.shields.io/bundlephobia/minzip/markdown-it-comark?style=flat&colorA=080f12&colorB=1fa669&label=minzip
-[bundle-href]: https://bundlephobia.com/result?p=markdown-it-comark
-[license-src]: https://img.shields.io/github/license/nuxt-content/markdown-it-comark.svg?style=flat&colorA=080f12&colorB=1fa669
-[license-href]: https://github.com/nuxt-content/markdown-it-comark/blob/main/LICENSE
+[npm-version-src]: https://img.shields.io/npm/v/@comark/markdown-it?style=flat&colorA=080f12&colorB=1fa669
+[npm-version-href]: https://npmjs.com/package/@comark/markdown-it
+[npm-downloads-src]: https://img.shields.io/npm/dm/@comark/markdown-it?style=flat&colorA=080f12&colorB=1fa669
+[npm-downloads-href]: https://npmjs.com/package/@comark/markdown-it
+[bundle-src]: https://img.shields.io/bundlephobia/minzip/@comark/markdown-it?style=flat&colorA=080f12&colorB=1fa669&label=minzip
+[bundle-href]: https://bundlephobia.com/result?p=@comark/markdown-it
+[license-src]: https://img.shields.io/github/license/comarkdown/markdown-it-comark.svg?style=flat&colorA=080f12&colorB=1fa669
+[license-href]: https://github.com/comarkdown/markdown-it-comark/blob/main/LICENSE
 [jsdocs-src]: https://img.shields.io/badge/jsdocs-reference-080f12?style=flat&colorA=080f12&colorB=1fa669
-[jsdocs-href]: https://www.jsdocs.io/package/markdown-it-comark
+[jsdocs-href]: https://www.jsdocs.io/package/@comark/markdown-it
