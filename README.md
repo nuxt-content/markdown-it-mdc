@@ -43,7 +43,6 @@ This plugin implements all the syntaxes documented in [Comark Syntax](https://co
 - [x] [Span](https://comark.dev/syntax/markdown#span-text)
 - ~~Frontmatter~~. Frontmatter is not built-in in this plugin, we recommend using [`@mdit-vue/plugin-frontmatter`](https://github.com/mdit-vue/mdit-vue/tree/main/packages/plugin-frontmatter) if you want to use this plugin outside of Comark package,
 
-
 ## License
 
 Made with ❤️

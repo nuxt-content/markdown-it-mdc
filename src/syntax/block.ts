@@ -2,7 +2,6 @@ import type MarkdownIt from 'markdown-it'
 import type Token from 'markdown-it/lib/token.mjs'
 import { JSON_SCHEMA, load } from 'js-yaml'
 import { parseBlockParams } from '../parse/block-params'
-import { parseYaml } from '../parse/yaml'
 
 export const MarkdownItMdcBlock: MarkdownIt.PluginSimple = (md) => {
   const min_markers = 2
