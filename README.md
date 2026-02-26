@@ -32,7 +32,7 @@ Hello **World** with :my-component{.text-red name="foo"}!
 
 ## Features
 
-This plugin implements all the syntaxes documented in [Comark Syntax](https://comark.dev/syntax/markdown). We are still testing behavior compatibility in detail before reaching `v0.1.0`.
+This plugin implements all the syntaxes documented in [Comark Syntax](https://comark.dev/syntax/markdown). We are still testing behavior compatibility in detail before reaching `v1.0.0`.
 
 - [x] [Block Component](https://comark.dev/syntax/markdown#block-components)
   - [x] [Nesting](https://comark.dev/syntax/markdown#nested-components)
@@ -43,17 +43,16 @@ This plugin implements all the syntaxes documented in [Comark Syntax](https://co
 - [x] [Span](https://comark.dev/syntax/markdown#span-text)
 - ~~Frontmatter~~. Frontmatter is not built-in in this plugin, we recommend using [`@mdit-vue/plugin-frontmatter`](https://github.com/mdit-vue/mdit-vue/tree/main/packages/plugin-frontmatter) if you want to use this plugin outside of Comark package,
 
-## Sponsors
-
-<p align="center">
-  <a href="https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg">
-    <img src='https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg'/>
-  </a>
-</p>
 
 ## License
 
-[MIT](./LICENSE) License © 2022 [Anthony Fu](https://github.com/antfu)
+Made with ❤️
+
+Published under MIT License.
+
+## Credits
+
+❤️ This project was originally created by [Anthony Fu](https://github.com/antfu) in 2022. Special thanks for the amazing work and inspiration! 🙏✨
 
 <!-- Badges -->
 
