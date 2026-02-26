@@ -1,7 +1,7 @@
 {
   "name": "markdown-it-comark",
   "type": "module",
-  "version": "0.2.12",
+  "version": "0.3.0",
   "packageManager": "pnpm@10.30.3",
   "description": "Markdown Components (MDC) support for markdown-it",
   "author": "Anthony Fu <anthonyfu117@hotmail.com>",
